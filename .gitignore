@@ -1,0 +1,50 @@
+# === Terraform ===
+# Local .terraform directories
+.terraform/
+*.tfstate.backup
+
+# State files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Sensitive variable files
+*.tfvars
+*.tfvars.json
+
+# Local override configs
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Plan output files
+*.plan
+
+# CLI config files
+.terraformrc
+terraform.rc
+
+# === OS / Editor files ===
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+
+#Key files
+*.pem
+*.key
+*.pub
+
+Key/
