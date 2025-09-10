@@ -1,0 +1,20 @@
+resource "aws_instance" "db-server" {
+  instance_type = "t3.micro"
+  ami = "ami-02d26659fd82cf299"
+  key_name = aws_key_pair.key.id
+  subnet_id = var.prv1_subnet_id
+  vpc_security_group_ids = [var.db-sg]
+  associate_public_ip_address = false
+  root_block_device {
+    volume_size = 8
+    volume_type = "gp3"
+  }
+  user_data = file("./EC2/userdata/mysql.sh")
+  tags = {
+    Name = "Database-server"
+  }
+
+  lifecycle {
+    prevent_destroy = false
+  }
+}
