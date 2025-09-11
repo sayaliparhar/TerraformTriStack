@@ -7,11 +7,12 @@ It demonstrates **modular design, scalability, and security** while following AW
 
 ## 🌐 Project Overview
 The project automates deployment of a three-tier architecture: **Web → Application → Database.**
-Terraform modules are used for **reusability** and **cleaner code**, implementing **network isolation**, load balancing, and secure database access.**
+Terraform modules are used for **reusability** and **cleaner code**, implementing **network isolation, load balancing, and secure database access.**
 
 ---
 ## 🌐Project Structure
 
+```text
 terraform-three-tier/
 ├─ modules/
 │  ├─ vpc/            # main.tf, variables.tf, outputs.tf, etc.
@@ -49,7 +50,9 @@ This project implements a highly available three-tier architecture on AWS, desig
 	Scalable: ALB supports auto-scaling of EC2 instances; RDS can scale vertically or via read replicas; CloudFront handles global caching.
 	Cost-Optimized: Uses micro instances and default CloudFront/ALB domains to minimize expenses during demo/testing.
 
-<img width="1105" height="461" alt="Architecture" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/Architecture/TerraformTriStack_Architecture.png?raw=true" />
+![Three-Tier Architecture](Architecture/TerraformTriStack_Architecture.png)
+
+
 
 ---
 
@@ -61,6 +64,7 @@ This project implements a highly available three-tier architecture on AWS, desig
 2) Defined variables for flexibility and outputs for module reuse.
 
 Example: Module call in main.tf
+
 module "ec2" {
   source = "./EC2"
   public_security_group_ids = module.security-group.web-sg-id
@@ -82,6 +86,7 @@ module "ec2" {
 2) Configured route tables for controlled traffic flow.
 
 Example: Public Subnet
+
 resource "aws_subnet" "pub1" {
 
     vpc_id = aws_vpc.vpc1.id
@@ -101,6 +106,7 @@ resource "aws_subnet" "pub1" {
 2) Restricted access so that RDS is accessible only from the application layer.
 
 Example: Security Group
+
 resource "aws_security_group" "websg"{
     name = "web-security-group"
     description = "allow ssh and http"
@@ -114,8 +120,8 @@ resource "aws_vpc_security_group_ingress_rule" "inbound2" {
     referenced_security_group_id = aws_security_group.load.id
     ip_protocol = "tcp"
     to_port = "80"
-  
 }
+
 <img width="829" height="511" alt="Uploaded the website file to the S3 bucket" src="" />
 
 ### Step 4:Web,Application & Database Layer
@@ -126,6 +132,7 @@ resource "aws_vpc_security_group_ingress_rule" "inbound2" {
 3) Deployed RDS instance in private subnet with secure access.
 
 Example: EC2 Instance
+
 resource "aws_instance" "bastion-host" {
     instance_type = "t3.micro"
     ami = var.ami_id
