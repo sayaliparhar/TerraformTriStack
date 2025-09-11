@@ -1,6 +1,6 @@
 resource "aws_instance" "bastion-host" {
     instance_type = "t3.micro"
-    ami = "ami-02d26659fd82cf299"
+    ami = var.ami_id
     subnet_id = var.pub1_subnet_id
     associate_public_ip_address = true
     key_name = "Project_key"

@@ -30,3 +30,9 @@ variable "private_security_group_ids" {
 variable "db-sg" {
   type = string
 }
+
+#variable for ami
+variable "ami_id" {
+  type = string
+  default = "ami-02d26659fd82cf299"
+}

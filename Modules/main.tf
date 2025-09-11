@@ -39,8 +39,8 @@ module "rds" {
   db_password = var.db_password
 }
 
-module "loadbalancer" {
-  source = "./LoadBalancer"
+module "alb" {
+  source = "./ALB"
   vpc_id = module.vpc.vpc_id
   load_sg = module.security-group.load-sg
   web_instance = module.ec2.web1
@@ -50,5 +50,5 @@ module "loadbalancer" {
 
 module "cloudfront" {
   source = "./CloudFront"
-  lb_dns = module.loadbalancer.lb-dns
+  lb_dns = module.alb.lb-dns
 }

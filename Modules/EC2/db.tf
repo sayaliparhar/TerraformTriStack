@@ -1,6 +1,6 @@
 resource "aws_instance" "db-server" {
   instance_type = "t3.micro"
-  ami = "ami-02d26659fd82cf299"
+  ami = var.ami_id
   key_name = aws_key_pair.key.id
   subnet_id = var.prv1_subnet_id
   vpc_security_group_ids = [var.db-sg]
