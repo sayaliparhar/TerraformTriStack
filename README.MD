@@ -53,9 +53,6 @@ This project implements a highly available three-tier architecture on AWS, desig
 
 ![Three-Tier Architecture](Architecture/TerraformTriStack_Architecture.png)
 
-<img width="1505" height="461" alt="Architecture" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/Architecture/TerraformTriStack_Architecture.png?raw=true" />
-
-
 ---
 
 ## ⚙️ Implementation Steps
@@ -66,7 +63,7 @@ This project implements a highly available three-tier architecture on AWS, desig
 2) Defined variables for flexibility and outputs for module reuse.
 
 Example: Module call in main.tf
-
+```hcl
 module "ec2" {
   source = "./EC2"
   public_security_group_ids = module.security-group.web-sg-id
@@ -76,8 +73,8 @@ module "ec2" {
   prv1_subnet_id = module.vpc.prv1_subnet_id
   prv2_subnet_id = module.vpc.prv2_subnet_id
   db-sg = module.security-group.db-sg-id
-  
 }
+```
 
 <img width="1270" height="815" alt="Screenshot-website-code" src="" />
 
@@ -88,7 +85,7 @@ module "ec2" {
 2) Configured route tables for controlled traffic flow.
 
 Example: Public Subnet
-
+```hcl
 resource "aws_subnet" "pub1" {
 
     vpc_id = aws_vpc.vpc1.id
@@ -98,6 +95,7 @@ resource "aws_subnet" "pub1" {
       Name = "Public_sub1"
     }
 }
+```
  
 <img width="1114" height="701" alt=" S3 bucket configured for static website" src="" />
 
@@ -108,7 +106,7 @@ resource "aws_subnet" "pub1" {
 2) Restricted access so that RDS is accessible only from the application layer.
 
 Example: Security Group
-
+```hcl
 resource "aws_security_group" "websg"{
     name = "web-security-group"
     description = "allow ssh and http"
@@ -123,6 +121,7 @@ resource "aws_vpc_security_group_ingress_rule" "inbound2" {
     ip_protocol = "tcp"
     to_port = "80"
 }
+```
 
 <img width="829" height="511" alt="Uploaded the website file to the S3 bucket" src="" />
 
@@ -134,7 +133,7 @@ resource "aws_vpc_security_group_ingress_rule" "inbound2" {
 3) Deployed RDS instance in private subnet with secure access.
 
 Example: EC2 Instance
-
+```hcl
 resource "aws_instance" "bastion-host" {
     instance_type = "t3.micro"
     ami = var.ami_id
@@ -151,6 +150,7 @@ resource "aws_instance" "bastion-host" {
       Name = "Bastion-Host1"
     }
 }
+```
 
 ### Step 5: Testing web and application layer
 1) Verified application accessibility via ALB DNS.
