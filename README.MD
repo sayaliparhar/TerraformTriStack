@@ -49,15 +49,16 @@ This project implements a highly available three-tier architecture on AWS, desig
 	Scalable: ALB supports auto-scaling of EC2 instances; RDS can scale vertically or via read replicas; CloudFront handles global caching.
 	Cost-Optimized: Uses micro instances and default CloudFront/ALB domains to minimize expenses during demo/testing.
 
-<img width="1105" height="461" alt="Architecture" src="https://github.com/user-attachments/assets/8eff6898-aa9a-4520-9506-8383b4a86d23" />
+<img width="1105" height="461" alt="Architecture" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/Architecture/TerraformTriStack_Architecture.png?raw=true" />
 
 ---
 
 ## ⚙️ Implementation Steps
 
 ### Step 1: Setup Terraform Project
-Created separate modules for VPC, Security Groups, EC2, RDS,Cloudfront and Loadbalancer.
-Defined variables and outputs for flexibility.
+1) Created a modular Terraform project with separate modules for VPC, EC2, RDS, ALB, Security Groups, and CloudFront.
+
+2) Defined variables for flexibility and outputs for module reuse.
 
 Example: Module call in main.tf
 module "ec2" {
@@ -72,12 +73,13 @@ module "ec2" {
   
 }
 
-<img width="1270" height="815" alt="Screenshot-website-code" src="https://github.com/user-attachments/assets/6b39da74-5f85-4d3a-98b7-40c9ed609104" />
+<img width="1270" height="815" alt="Screenshot-website-code" src="" />
 
 
 ### Step 2: Deploy Networking Layer
-Provisioned VPC, subnets, Internet Gateway, and NAT Gateway.
-Configured route tables for controlled traffic flow.
+1) Provisioned VPC, public and private subnets, Internet Gateway, and NAT Gateway.
+
+2) Configured route tables for controlled traffic flow.
 
 Example: Public Subnet
 resource "aws_subnet" "pub1" {
@@ -90,11 +92,13 @@ resource "aws_subnet" "pub1" {
     }
 }
  
-<img width="1114" height="701" alt=" S3 bucket configured for static website" src="https://github.com/user-attachments/assets/9e3f0ec6-e88f-433e-b798-45741a6c5a0e" />
+<img width="1114" height="701" alt=" S3 bucket configured for static website" src="" />
 
 
 ### Step 3: Configure Security
-Created Security Groups for ALB, Web layer,Application layer and Database layer.
+1) Created Security Groups for ALB, Web Layer, Application Layer, and Database Layer.
+
+2) Restricted access so that RDS is accessible only from the application layer.
 
 Example: Security Group
 resource "aws_security_group" "websg"{
@@ -112,12 +116,14 @@ resource "aws_vpc_security_group_ingress_rule" "inbound2" {
     to_port = "80"
   
 }
-<img width="829" height="511" alt="Uploaded the website file to the S3 bucket" src="https://github.com/user-attachments/assets/a66eaf67-3c13-456f-b283-f3185de25bad" />
+<img width="829" height="511" alt="Uploaded the website file to the S3 bucket" src="" />
 
 ### Step 4:Web,Application & Database Layer
-Launched EC2 instances in public subnets behind an Application Load Balancer (ALB).
-Launched EC2 instances in private subnets, accessible only through a bastion host.
-Deployed an RDS instance in the database subnet, configured for secure access via the bastion host.
+1) Launched EC2 instances in public subnets behind ALB.
+
+2) Launched EC2 instances in private subnets for application logic.
+
+3) Deployed RDS instance in private subnet with secure access.
 
 Example: EC2 Instance
 resource "aws_instance" "bastion-host" {
@@ -138,49 +144,50 @@ resource "aws_instance" "bastion-host" {
 }
 
 ### Step 5: Testing web and application layer
-Verified application accessibility through the Web Layer.
-Confirmed that the database is accessible only from the Application Layer (secure connectivity).
-Tested application access using the ALB DNS endpoint.
-Validated application delivery via the CloudFront endpoint.
+1) Verified application accessibility via ALB DNS.
+
+2) Confirmed database access is restricted to the Application Layer.
+
+3) Validated CloudFront delivery for global content caching.
 (4 ss of verification)
 
 ---
 
 ## 🔧 Challenges & Lessons Learned
-- **Managed state files securely and learned the importance of remote state backends.
-- **Debugged module dependencies to ensure correct resource creation order.
-- **Learned to use tfvars files for storing sensitive details securely.
-- **Adopted modular code best practices for better reusability and scalability.
+- **Managed state files securely and learned the importance of remote state backends.**
+- **Debugged module dependencies to ensure correct resource creation order.**
+- **Learned to use tfvars files for storing sensitive details securely.**
+- **Adopted modular code best practices for better reusability and scalability.**
 ---
 
 ## 💰 Cost Optimization
-- **Used t3.micro EC2 and RDS t3.micro instances to minimize costs in testing.
-- **Avoided extra expenses by using CloudFront’s default domain and skipping SSL certificates during the demo phase.
-- **Designed the architecture to be lightweight yet scalable:
-	- **Scalable → ALB supports adding/removing EC2s, CloudFront handles global caching, RDS supports
+- **Used t3.micro EC2 and RDS t3.micro instances to minimize costs in testing.**
+- **Avoided extra expenses by using CloudFront’s default domain and skipping SSL certificates during the demo phase.**
+- **Designed the architecture to be lightweight yet scalable:**
+	- **Scalable** → ALB supports adding/removing EC2s, CloudFront handles global caching, RDS supports
 		       scaling vertically and with read replicas.
-	- **Lightweight → Minimal resources (micro instances, no paid services) to keep bills under control.
+	- **Lightweight** → Minimal resources (micro instances, no paid services) to keep bills under control.
 ---
 
 ## 🚀 Future Enhancements
 To make the setup more production-ready:
 
-- **Auto Scaling Groups – Automatically adjust app servers based on traffic.
-- **Terraform Remote Backend – Use S3 + DynamoDB for secure and collaborative state management.
-- **CloudWatch Monitoring & Alarms – Enable proactive monitoring and alerts.
-- **CI/CD Pipeline – Use GitHub Actions + Terraform Cloud for automated deployments.
-- **SSL Certificate (ACM) – Secure endpoints with HTTPS and a custom domain.
-- **AWS WAF (Web Application Firewall) – Protect from common web exploits.
-- **Custom Domain Integration – Map CloudFront to a Route 53 domain for better accessibility.
+- **Auto Scaling Groups – Automatically adjust app servers based on traffic.**
+- **Terraform Remote Backend – Use S3 + DynamoDB for secure and collaborative state management.**
+- **CloudWatch Monitoring & Alarms – Enable proactive monitoring and alerts.**
+- **CI/CD Pipeline – Use GitHub Actions + Terraform Cloud for automated deployments.**
+- **SSL Certificate (ACM) – Secure endpoints with HTTPS and a custom domain.**
+- **AWS WAF (Web Application Firewall) – Protect from common web exploits.**
+- **Custom Domain Integration – Map CloudFront to a Route 53 domain for better accessibility.**
 
 ---
 
 ## 🔗 Demo
 
-- **🌐 Application Access → Accessible via ALB DNS endpoint (d3d0y3lhl1dt40.cloudfront.net)
-- **📂 Terraform Project Code → Available in this repository
+- **🌐 Application Access → Accessible via ALB DNS endpoint (d3d0y3lhl1dt40.cloudfront.net)**
+- **📂 Terraform Project Code → Available in this repository**
 
-- **📝 Note: The application is a simple Apache web server. The focus of this project is on designing and deploying a scalable and secure cloud infrastructure using AWS services and Terraform.
+- **📝 Note: The application is a simple Apache web server. The focus of this project is on designing and deploying a scalable and secure cloud infrastructure using AWS services and Terraform.**
 
-<img width="842" height="860" alt="Website-test" src="https://github.com/user-attachments/assets/c262a210-2245-4289-bfb3-1be7ab95dec9" />
+<img width="842" height="860" alt="Website-test" src="" />
 
