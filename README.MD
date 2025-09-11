@@ -25,6 +25,7 @@ terraform-three-tier/
 ├─ variables.tf
 ├─ provider.tf
 └─ terraform.tfvars
+```
 
 ## 🚀Architecture Overview
 This project implements a highly available three-tier architecture on AWS, designed for scalability, security, and modularity.
@@ -52,6 +53,7 @@ This project implements a highly available three-tier architecture on AWS, desig
 
 ![Three-Tier Architecture](Architecture/TerraformTriStack_Architecture.png)
 
+<img width="1505" height="461" alt="Architecture" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/Architecture/TerraformTriStack_Architecture.png?raw=true" />
 
 
 ---
