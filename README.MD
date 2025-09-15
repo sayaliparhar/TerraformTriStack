@@ -226,9 +226,6 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
 ```
-<p align="center">
-  <img width="800" alt="public subnets" src="" />
-</p>
 
 ### Step 5: TestCases
 1. Verified application access is restricted via **ALB**, **Web**, **Application**, and **Database Layer**.
