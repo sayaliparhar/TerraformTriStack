@@ -108,13 +108,13 @@ module "ec2" {
 }
 ```
 <p align="center">
-  <img width="800" alt="EC2 Instances" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Ec2Instances.png?raw=true" />
+  <img width="700" alt="EC2 Instances" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Ec2Instances.png?raw=true" />
 </p>
 
 <br><br>
 
 <p align="center">
-  <img width="800" alt="RDS DB" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/RDS%20DB.png?raw=true" />
+  <img width="700" alt="RDS DB" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/RDS%20DB.png?raw=true" />
 </p>
 
 <br><br>
@@ -126,7 +126,7 @@ module "ec2" {
 <br><br>
 
 <p align="center">
-  <img width="800" alt="CDN" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20creation.png?raw=true" />
+  <img width="700" alt="CDN" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20creation.png?raw=true" />
 </p>
 
 ### Step 2: Deploy Networking Layer
@@ -147,13 +147,13 @@ resource "aws_subnet" "pub1" {
 }
 ```
 <p align="center">
-  <img width="800" alt="Public Subnets" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Vpc%20with%20public%20subnet.png?raw=true"/>
+  <img width="700" alt="Public Subnets" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Vpc%20with%20public%20subnet.png?raw=true"/>
 </p>
 
 <br><br>
 
 <p align="center">
-  <img width="800" alt="Private Subnets" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Vpc%20with%20private%20subnet.png?raw=true"/>
+  <img width="700" alt="Private Subnets" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Vpc%20with%20private%20subnet.png?raw=true"/>
 </p>
 
 
@@ -194,7 +194,7 @@ resource "aws_vpc_security_group_egress_rule" "outload" {
 ```
 
 <p align="center">
-  <img width="800" alt="Security Groups" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Security_Groups.png?raw=true" />
+  <img width="700" alt="Security Groups" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Security_Groups.png?raw=true" />
 </p>
 
 
@@ -228,41 +228,64 @@ resource "aws_cloudfront_distribution" "cdn" {
 ```
 
 ### Step 5: TestCases
-1. Verified application access is restricted via **ALB**, **Web**, **Application**, and **Database Layer**.
-2. Validated **CloudFront** delivery for global content caching.
+1. Application Access via CloudFront ✅
+
+    * The application loads successfully through the CloudFront distribution URL, as expected.
 
 <p align="center">
-  <img width="800" alt="Bastion-host ip" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/bastion-host%20verification(1).png?raw=true"/>
+  <img width="700" alt="Cloudfront dns" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20creation.png?raw=true"/>
 </p>
 
 <br><br>
 
 <p align="center">
-  <img width="800" alt="Bastion-host verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Bastion-host%20verification(2).png?raw=true"/>
+  <img width="700" alt="Cloudfront DNS verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20application%20deployed.png?raw=true"/>
+</p>
+
+<br><br>
+
+2. Direct Access via ALB / Web Layer ⚠️
+
+    * Some test cases may show the app not loading directly from the Web or ALB layer.
+
+    * This is expected behavior, because the application is served via CloudFront, which acts as a CDN in front of the ALB for:
+
+    * Improved global performance
+
+    * Caching of content
+
+    * Enhanced security
+
+<p align="center">
+  <img width="700" alt="Bastion-host ip" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/bastion-host%20verification(1).png?raw=true"/>
 </p>
 
 <br><br>
 
 <p align="center">
-  <img width="800" alt="ALB-DNS" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB-DNS.png?raw=true"/>
+  <img width="700" alt="Bastion-host verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Bastion-host%20verification(2).png?raw=true"/>
 </p>
 
 <br><br>
 
 <p align="center">
-  <img width="800" alt="ALB-DNS Verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB-DNS-Verification.png?raw=true"/>
+  <img width="700" alt="ALB-DNS" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB-DNS.png?raw=true"/>
 </p>
 
 <br><br>
 
 <p align="center">
-  <img width="800" alt="Cloudfront dns" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20creation.png?raw=true"/>
+  <img width="700" alt="ALB-DNS Verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB-DNS-Verification.png?raw=true"/>
 </p>
 
 <br><br>
 
+3. Security & Access Controls ✅
+
+    * IAM roles and policies enforce restricted access to resources.
+
 <p align="center">
-  <img width="800" alt="Cloudfront DNS verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20application%20deployed.png?raw=true"/>
+  <img width="700" alt="Security of IAM" src="" />
 </p>
 
 ---
@@ -283,6 +306,19 @@ resource "aws_cloudfront_distribution" "cdn" {
 	- **Lightweight** → Minimal resources (micro instances, no paid services) to keep bills under control.
 ---
 
+## 🔗 Demo
+
+- **🌐 Application Access → Accessible via ALB DNS endpoint (d2i7sjyohxhhc3.cloudfront.net)**
+- **📂 Terraform Project Code → Available in this repository**
+
+- **📝 Note: The application is a simple Apache web server. The focus of this project is on designing and deploying a scalable and secure cloud infrastructure using AWS services and Terraform.**
+
+<p align="center">
+  <img width="700" alt="Cloudfront DNS verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20application%20deployed.png?raw=true"/>
+</p>
+
+---
+
 ## 🚀 Future Enhancements
 To make the setup more production-ready:
 
@@ -293,17 +329,4 @@ To make the setup more production-ready:
 - **SSL Certificate (ACM) – Secure endpoints with HTTPS and a custom domain.**
 - **AWS WAF (Web Application Firewall) – Protect from common web exploits.**
 - **Custom Domain Integration – Map CloudFront to a Route 53 domain for better accessibility.**
-
----
-
-## 🔗 Demo
-
-- **🌐 Application Access → Accessible via ALB DNS endpoint (d2i7sjyohxhhc3.cloudfront.net)**
-- **📂 Terraform Project Code → Available in this repository**
-
-- **📝 Note: The application is a simple Apache web server. The focus of this project is on designing and deploying a scalable and secure cloud infrastructure using AWS services and Terraform.**
-
-<p align="center">
-  <img width="800" alt="Cloudfront DNS verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20application%20deployed.png?raw=true"/>
-</p>
 
