@@ -108,25 +108,25 @@ module "ec2" {
 }
 ```
 <p align="center">
-  <img width="700" alt="EC2 Instances" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Ec2Instances.png?raw=true" />
+  <img width="750" alt="EC2 Instances" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Ec2Instances.png?raw=true" />
 </p>
 
 <br><br>
 
 <p align="center">
-  <img width="700" alt="RDS DB" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/RDS%20DB.png?raw=true" />
+  <img width="750" alt="RDS DB" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/RDS%20DB.png?raw=true" />
 </p>
 
 <br><br>
 
 <p align="center">
-  <img width="800" alt="ALB" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB.png?raw=true" />
+  <img width="750" alt="ALB" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB.png?raw=true" />
 </p>
 
 <br><br>
 
 <p align="center">
-  <img width="700" alt="CDN" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20creation.png?raw=true" />
+  <img width="750" alt="CDN" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20creation.png?raw=true" />
 </p>
 
 ### Step 2: Deploy Networking Layer
@@ -147,13 +147,13 @@ resource "aws_subnet" "pub1" {
 }
 ```
 <p align="center">
-  <img width="700" alt="Public Subnets" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Vpc%20with%20public%20subnet.png?raw=true"/>
+  <img width="750" alt="Public Subnets" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Vpc%20with%20public%20subnet.png?raw=true"/>
 </p>
 
 <br><br>
 
 <p align="center">
-  <img width="700" alt="Private Subnets" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Vpc%20with%20private%20subnet.png?raw=true"/>
+  <img width="750" alt="Private Subnets" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Vpc%20with%20private%20subnet.png?raw=true"/>
 </p>
 
 
@@ -194,7 +194,7 @@ resource "aws_vpc_security_group_egress_rule" "outload" {
 ```
 
 <p align="center">
-  <img width="700" alt="Security Groups" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Security_Groups.png?raw=true" />
+  <img width="750" alt="Security Groups" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Security_Groups.png?raw=true" />
 </p>
 
 
@@ -244,7 +244,7 @@ resource "aws_cloudfront_distribution" "cdn" {
 
 <br><br>
 
-2. Direct Access via ALB / Web Layer ⚠️
+2. Restricted Access via ALB and Web Layer ⚠️
 
     * Some test cases may show the app not loading directly from the Web or ALB layer.
 
@@ -256,36 +256,12 @@ resource "aws_cloudfront_distribution" "cdn" {
 
     * Enhanced security
 
-<p align="center">
-  <img width="700" alt="Bastion-host ip" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/bastion-host%20verification(1).png?raw=true"/>
-</p>
-
-<br><br>
-
-<p align="center">
-  <img width="700" alt="Bastion-host verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Bastion-host%20verification(2).png?raw=true"/>
-</p>
-
-<br><br>
-
-<p align="center">
-  <img width="700" alt="ALB-DNS" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB-DNS.png?raw=true"/>
-</p>
-
-<br><br>
-
-<p align="center">
-  <img width="700" alt="ALB-DNS Verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB-DNS-Verification.png?raw=true"/>
-</p>
-
-<br><br>
-
 3. Security & Access Controls ✅
 
     * IAM roles and policies enforce restricted access to resources.
 
 <p align="center">
-  <img width="700" alt="Security of IAM" src="" />
+  <img width="750" alt="Security of IAM" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/IAM-Security.png?raw=true" />
 </p>
 
 ---
