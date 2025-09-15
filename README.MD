@@ -1,4 +1,4 @@
-# Terraform Three-Tier Architecture on AWS
+# Terraform Tri Stack
 
 This project showcases how I deployed a highly available **three-tier architecture on AWS** using **Terraform (Infrastructure as Code).**
 It demonstrates **modular design, scalability, and security** while following AWS best practices.
@@ -107,10 +107,27 @@ module "ec2" {
   db-sg = module.security-group.db-sg-id
 }
 ```
-![TERRAFORMTRISTACK](TestCases/Ec2Instances.png)
+<p align="center">
+  <img width="800" alt="EC2 Instances" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Ec2Instances.png?raw=true" />
+</p>
 
-/*<img width="1270" height="815" alt="Screenshot-website-code" src="" />*/
+<br><br>
 
+<p align="center">
+  <img width="800" alt="RDS DB" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/RDS%20DB.png?raw=true" />
+</p>
+
+<br><br>
+
+<p align="center">
+  <img width="800" alt="ALB" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB.png?raw=true" />
+</p>
+
+<br><br>
+
+<p align="center">
+  <img width="800" alt="CDN" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20creation.png?raw=true" />
+</p>
 
 ### Step 2: Deploy Networking Layer
 1) Provisioned VPC, public and private subnets, Internet Gateway, and NAT Gateway.
@@ -129,8 +146,15 @@ resource "aws_subnet" "pub1" {
     }
 }
 ```
- 
-<img width="1114" height="701" alt=" S3 bucket configured for static website" src="" />
+<p align="center">
+  <img width="800" alt="Public Subnets" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Vpc%20with%20public%20subnet.png?raw=true"/>
+</p>
+
+<br><br>
+
+<p align="center">
+  <img width="800" alt="Private Subnets" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Vpc%20with%20private%20subnet.png?raw=true"/>
+</p>
 
 
 ### Step 3: Configure Security
@@ -169,7 +193,10 @@ resource "aws_vpc_security_group_egress_rule" "outload" {
 }
 ```
 
-<img width="829" height="511" alt="Uploaded the website file to the S3 bucket" src="" />
+<p align="center">
+  <img width="800" alt="Security Groups" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Security_Groups.png?raw=true" />
+</p>
+
 
 ### Step 4:Web,Application & Database Layer Execution Process
 1) Launched **CloudFront** distribution pointing to the **Load Balancer URL** for global content delivery.
@@ -199,12 +226,47 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
 ```
+<p align="center">
+  <img width="800" alt="public subnets" src="" />
+</p>
 
 ### Step 5: TestCases
 1. Verified application access is restricted via **ALB**, **Web**, **Application**, and **Database Layer**.
 2. Validated **CloudFront** delivery for global content caching.
 
+<p align="center">
+  <img width="800" alt="Bastion-host ip" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/bastion-host%20verification(1).png?raw=true"/>
+</p>
 
+<br><br>
+
+<p align="center">
+  <img width="800" alt="Bastion-host verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Bastion-host%20verification(2).png?raw=true"/>
+</p>
+
+<br><br>
+
+<p align="center">
+  <img width="800" alt="ALB-DNS" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB-DNS.png?raw=true"/>
+</p>
+
+<br><br>
+
+<p align="center">
+  <img width="800" alt="ALB-DNS Verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/ALB-DNS-Verification.png?raw=true"/>
+</p>
+
+<br><br>
+
+<p align="center">
+  <img width="800" alt="Cloudfront dns" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20creation.png?raw=true"/>
+</p>
+
+<br><br>
+
+<p align="center">
+  <img width="800" alt="Cloudfront DNS verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20application%20deployed.png?raw=true"/>
+</p>
 
 ---
 
@@ -239,10 +301,12 @@ To make the setup more production-ready:
 
 ## 🔗 Demo
 
-- **🌐 Application Access → Accessible via ALB DNS endpoint (d3d0y3lhl1dt40.cloudfront.net)**
+- **🌐 Application Access → Accessible via ALB DNS endpoint (d2i7sjyohxhhc3.cloudfront.net)**
 - **📂 Terraform Project Code → Available in this repository**
 
 - **📝 Note: The application is a simple Apache web server. The focus of this project is on designing and deploying a scalable and secure cloud infrastructure using AWS services and Terraform.**
 
-<img width="842" height="860" alt="Website-test" src="" />
+<p align="center">
+  <img width="800" alt="Cloudfront DNS verification" src="https://github.com/sayaliparhar/TerraformTriStack/blob/master/TestCaes/Cloudfront%20application%20deployed.png?raw=true"/>
+</p>
 
